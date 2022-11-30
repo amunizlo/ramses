@@ -19,9 +19,12 @@ ENT=true
 REC=true
 EVA=true
 
+#ficheros guia
 DIR_GUI=$DIR_WRK/Gui
 GUI_ENT=$DIR_GUI/train.gui
 GUI_REC=$DIR_GUI/devel.gui
+
+#directorios del sistema
 DIR_SEN=$DIR_WRK/Sen
 DIR_MAR=$DIR_WRK/Sen
 DIR_PRM=$DIR_WRK/prm/$NOM
@@ -30,7 +33,7 @@ DIR_REC=$DIR_WRK/Rec/$NOM
 LIS_MOD=$DIR_WRK/Lis/vocales.lis
 FIC_RES=$DIR_WRK/Res/$NOM.res
 [ -d $(dirname $FIC_RES) ] || mkdir -p $(dirname $FIC_RES)
-
+#PARAMETRIZAMOS
 dirSen="-s $DIR_SEN"
 dirPrm="-p $DIR_PRM"
 
