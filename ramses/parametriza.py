@@ -9,7 +9,7 @@ from prm import *
 #exec(open('ramses/util.py').read())
 #exec(open('ramses/prm.py').read())
 
-def parametriza(dirPrm, dirSen, *guiSen):
+def parametriza(dirPrm, dirSen, *guiSen, funcPrm = lambda x:x):
     """
     Lee las señales indicadas por 'dirSen', 'guiSen' y 'extSen', y escribe la señal
     parametrizada en el directorio 'dirPrm'.
@@ -21,7 +21,7 @@ def parametriza(dirPrm, dirSen, *guiSen):
         pathSen = pathName(dirSen, nomSen, "wav")
         sen, fm = sf.read(pathSen)
 
-        prm = np.array(sen)
+        prm = funcPrm(sen)
 
         pathPrm = pathName(dirPrm, nomSen, ".prm")
         chkPathName(pathPrm)
@@ -46,6 +46,8 @@ Usage:
 Opciones:
     -s PATH, --dirSen=PATH  Directorio con las señales temporales [default: .]
     -p PATH, --dirPrm=PATH  Directorio con las señales parametrizadas [default: .]
+    -x SCRIPT..., --execPre SCRIPT...  script(s) a ejecutar en python previos
+    -f EXP, --funcPrm=EXPR  Expresión Python para parametrización
 
 Argumentos:
     <guiSen>  Nombre del fichero guía con los nombres de las señales a parametrizar.
@@ -62,5 +64,11 @@ Parametrización trivial:
     dirPrm = args['--dirPrm']
 
     guiSen = args['<guiSen>']
+    scripts = args['--execPre']
+    if scripts:
+        for script in scripts.split(','):
+            exec(open(script).read())
 
-    parametriza(dirPrm, dirSen, *guiSen)
+    funcPrm = eval(args['--funcPrm']) if args['--funcPrm'] else lambda x:x
+
+    parametriza(dirPrm, dirSen, *guiSen, funcPrm=funcPrm)
