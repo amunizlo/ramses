@@ -35,7 +35,6 @@ FIC_RES=$DIR_WRK/Res/$NOM.res
 [ -d $(dirname $FIC_RES) ] || mkdir -p $(dirname $FIC_RES)
 
 #PARAMETRIZAMOS
-<<<<<<< HEAD
 FUNCPRM=trivial
 EXEC_PRE=$DIR_PRM/$FUNCPRM.py
 [ -d $(dirname $EXEC_PRE) ] || mkdir -p $(dirname $EXEC_PRE)
@@ -44,8 +43,6 @@ funcPrm="-f $FUNCPRM"
 echo "def $FUNCPRM (x):" | tee $EXEC_PRE
 echo "  return x" | tee -a $EXEC_PRE
 
-=======
->>>>>>> be8a7ea1bb03285bf0fe233a8ff69d8de2e88580
 FUNCPRM=fft
 EXEC_PRE=$DIR_PRM/$FUNCPRM.py
 [ -d $(dirname $EXEC_PRE) ] || mkdir -p $(dirname $EXEC_PRE)
@@ -53,25 +50,17 @@ execpre="-x $EXEC_PRE"
 funcPrm="-f $FUNCPRM"
 echo "import numpy as np" | tee $EXEC_PRE
 echo "def $FUNCPRM (x):" | tee -a $EXEC_PRE
-<<<<<<< HEAD
-echo "  return np.fft.fft(x)" | tee -a $EXEC_PRE
-=======
 echo "  return np.fft.fft(x)" | tee -a $EXEC_PRE 
->>>>>>> be8a7ea1bb03285bf0fe233a8ff69d8de2e88580
 
 FUNCPRM=pdgm
 EXEC_PRE=$DIR_PRM/$FUNCPRM.py
 [ -d $(dirname $EXEC_PRE) ] || mkdir -p $(dirname $EXEC_PRE)
 execpre="-x $EXEC_PRE"
 funcPrm="-f $FUNCPRM"
+eps=10
 echo "import numpy as np" | tee $EXEC_PRE
 echo "def $FUNCPRM (x):" | tee -a $EXEC_PRE
-<<<<<<< HEAD
-echo "  return np.abs(np.fft.fft(x))**2" | tee -a $EXEC_PRE
-
-=======
-echo "  return np.abs(np.fft.fft(x))**2" | tee -a $EXEC_PRE 
->>>>>>> be8a7ea1bb03285bf0fe233a8ff69d8de2e88580
+echo "  return 10 * np.log10($eps+np.abs(np.fft.fft(x)) ** 2)" | tee -a $EXEC_PRE 
 
 dirSen="-s $DIR_SEN"
 dirPrm="-p $DIR_PRM"
